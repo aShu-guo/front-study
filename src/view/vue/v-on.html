@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="timer">
+  <button @click="counter">
+    click
+  </button>
+  <div>
+    被点击了{{ count }}次
+  </div>
+</div>
+
+<div id="keyboard">
+  <ul>
+    <li><input v-on:click.ctrl="listener"></li>
+    <li>
+      <input @keyup.shift="listener">
+      keyup:按住shift键➕其他键，并释放其他键时触发
+    </li>
+    <li>
+      <input @keyup.17="listener">
+      如果希望释放指定键时触发，通过keyCode按键码
+    </li>
+    <li>
+      <input @click.meta.exact="listener">
+      command+click触发事件
+      精确的控制事件的触发行为
+    </li>
+    <li>
+      <input @mousedown.left="listener">
+      鼠标事件修饰符
+    </li>
+  </ul>
+
+
+</div>
+
+</body>
+<script src="../../js/vue.js"></script>
+
+<script>
+  var timervm = new Vue({
+    el: '#timer',
+    data: {
+      count: 0,
+    },
+    methods: {
+      counter() {
+        this.count++;
+      }
+    }
+  })
+
+  var upCtrl = new Vue({
+    el: '#keyboard',
+    methods: {
+      listener() {
+        console.log('up?')
+      }
+    }
+  })
+</script>
+</html>

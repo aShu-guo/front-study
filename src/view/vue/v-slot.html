@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>插槽 v-slot</title>
+</head>
+<body>
+
+<div id="tips">
+  <content-a content="<h1>Dell</h1>"></content-a>
+  <hr>
+  <content-b>
+    <!--
+    1.v-slot只能用在template上
+    2.v-slot:指令的缩写是#，使用缩写时必须明确指定插槽名
+    3.v-slot等价于v-slot:default
+    4.v-slot:绑定的插槽名完全小写，不支持驼峰和分隔符
+
+     -->
+    <!--    <template v-slot="header"></template>-->
+    <!--    <template v-slot="header"></template>-->
+
+    <template #footer><h1>footer</h1></template>
+    <template v-slot:[slotname]><h1>header</h1></template>
+
+    <!--    <h1 v-slot="header" >Header</h1>-->
+    <!--    <h1 v-slot="footer">Footer</h1>-->
+  </content-b>
+  <hr>
+  <content-c>
+    <!--  让插槽内容访问子组件中属性  -->
+    <!--    <template slot-scope="props">
+          <h1>{{ props.item }}</h1>
+        </template>-->
+    <template v-slot:default="slotProps">
+      <h1>{{ slotProps.item }}</h1>
+    </template>
+  </content-c>
+  <hr>
+  <content-d :child-value="parentValue"></content-d>
+
+  <hr>
+  <content-e v-if="type==='content-e'"></content-e>
+  <content-f v-if="type==='content-f'"></content-f>
+  <button @click="change">change!</button>
+
+  <!--  //动态组件 -->
+  <conponent :is="type"></conponent>
+
+  <!--  被'keep-alive'标签包裹的组件，失活时将会被缓存；但是要求切换到的组件必须有自己name属性 -->
+  <hr>
+</div>
+<script src="../../js/vue.js"></script>
+<script>
+  //父组件向子组件传递dom时用到slot
+  var ContentA = {
+    props: {
+      content: {
+        type: String,
+        require: true,
+      }
+    },
+    template: `
+      <div>
+      <h1>HappyBirthday</h1>
+      <div v-html="this.content"></div>
+      </div>
+    `
+  }
+
+  //具名插槽 name属性
+  var ContentB = {
+    template: `
+    <div>
+        <slot name="header"><h1>default header</h1></slot>
+        <div>Hello world</div>
+        <slot name="footer"></slot>
+    </div>
+    `,
+  }
+
+  /*
+ 作用域插槽
+ 必须以template开始结束
+ 绑定在slot上的属性成为插槽props
+  */
+  var ContentC = {
+    data: function () {
+      return {
+        list: [1, 2, 3, 4],
+      }
+    },
+    template: `
+      <div>
+      <ul>
+        <slot v-for="data of list" :item="data">default value:{{ data }}</slot>
+      </ul>
+      </div>
+    `
+  }
+
+  var ContentD = {
+    props: ['childValue'],
+    data: function () {
+      return {
+        value: this.childValue,
+      }
+    },
+    template: '<div>{{value}}</div>',
+    watch: {
+      childValue(newVal, oldVal) {
+        this.value = newVal
+      }
+    }
+
+  }
+
+  //
+  /*
+  v-once指令可以有效提高静态组件的加载性能，只计算一次然后缓存起来
+  只适用于静态内容，
+   */
+  var ContentE = {
+    template: '<div v-once>Child-E</div>'
+  }
+
+  var ContentF = {
+    template: '<div v-once>Child-F</div>'
+  }
+
+  var vm = new Vue({
+    el: '#tips',
+    data: {
+      parentValue: 121233,
+      type: 'content-e',
+      slotname: 'header',
+    },
+    components: {
+      'content-a': ContentA,
+      'content-b': ContentB,
+      'content-c': ContentC,
+      'content-d': ContentD,
+      'content-e': ContentE,
+      'content-f': ContentF,
+    },
+    methods: {
+      change() {
+        this.type = this.type === 'content-e' ? 'content-f' : 'content-e'
+      }
+    }
+  })
+
+
+</script>
+</body>
+</html>

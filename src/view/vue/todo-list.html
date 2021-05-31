@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="todo-list">
+  <input type="text" v-model="value">
+  <button type="submit" v-on:click="buttonClickHandler">提交</button>
+
+  <ul>
+    <todo-item v-bind:value="item"
+               v-bind:index="index"
+               v-for="(item,index) in list "
+               @delete="deleteItemHandler">
+      {{ item }}
+    </todo-item>
+    <!--    <li v-for="item in list">{{ item }}</li>-->
+  </ul>
+</div>
+
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+  /*
+  父组件向子组件传值，通过v-bind:xxx 绑定值
+  子组件向父组件传值，子组件绑定事件并通过this.$emit触发，父组件监听子组件事件得到值
+
+  一些缩写：
+  v-bind  :bind
+  v-on:click  @click
+  */
+
+  /*全局组件
+  Vue.component('TodoItem', {
+    props: ['value'],
+    template: '<li>{{value}}</li>',
+  })*/
+
+  /*
+  局部组件
+  */
+  var TodoItem = {
+    props: ['value', 'index'],
+    template: '<li @click="itemClickHandler(index)">{{value}}</li>',
+    methods: {
+      itemClickHandler(index) {
+        this.$emit('delete', index);
+      }
+    }
+  }
+  //mvvm设计模式
+  var vue = new Vue({
+    el: '#todo-list',
+    //局部组件
+    components: {
+      TodoItem
+    },
+    data: {
+      list: [],
+      value: ''
+    },
+    methods: {
+      buttonClickHandler: function () {
+        this.list.push(this.value);
+        this.value = '';
+      },
+      deleteItemHandler(index) {
+        this.list.splice(index, 1);
+      }
+    }
+  })
+</script>
+</html>

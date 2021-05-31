@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    li {
+      list-style: none;
+    }
+
+  </style>
+</head>
+<body>
+<div id="forIn">
+  <ul>
+    <!--    <li v-for="(item,index) in list">-->
+    <!--      {{item.contractNo}}-{{index}}-{{item.customer}}-->
+    <!--    </li>-->
+    <!--    <li v-for="obj of list" style="list-style: none">
+            <span v-for="(value,name,index) in obj">
+              {{index}}.{{ name }}-{{ value }}
+            </span>
+        </li>-->
+    <li v-for="item of half" :key="item.id" :value="item.id">
+      {{ item }}
+    </li>
+  </ul>
+</div>
+
+<div id="template">
+  <!--  template是一个占位符，遍历是只渲染包裹的标签  -->
+  <ul>
+    <template v-for="(item1,key,index) in list2">
+      <li>{{ item1 }}----{{key}}----{{index}}</li>
+    </template>
+  </ul>
+
+</div>
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+  //为了性能考虑，在每个循环项上加一个:key，最好唯一，用id
+  var forIn = new Vue({
+    el: '#forIn',
+    data: {
+      list: [
+        {contractNo: 'HT1234123412', customer: 'xiaoming', money: 200, id: 11347843},
+        {contractNo: 'HT9837649123', customer: 'xiaohuang', money: 100, id: 11347842},
+      ]
+    },
+    computed: {
+      half() {
+        return this.list.filter((value) => value.money >= 100)
+      }
+    }
+  })
+
+  //v-for 运营在template上
+  var tempalte = new Vue({
+    el: '#template',
+    data: {
+      list2: [1, 2, 3, 4,],
+    }
+  })
+
+
+  /*
+  操作数组的索引并不会响应式的渲染页面，有两种方式
+  第一种通过vue提供的数组变异方法修改数据 push pop shift unshift splice sort reverse
+  第二种修改数据的引用
+   */
+</script>
+</html>

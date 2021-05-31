@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="bind-class-obj" @click="showRed">
+  <div :class="clickShowRed">
+    Hello world!
+  </div>
+</div>
+
+<div id="bind-class-arr" @click="showRed">
+  <div :class="clickShowRed">
+    Hello world!
+  </div>
+</div>
+
+<script src="../../js/vue.js"></script>
+<script>
+  var bindClassObj = new Vue({
+    el: '#bind-class-obj',
+    data: {
+      clickShowRed: {
+        red: ''
+      }
+    },
+    methods: {
+      showRed() {
+        this.clickShowRed.red = 'red';
+      }
+    }
+  })
+
+  var bindClassArr = new Vue({
+    el: '#bind-class-arr',
+    data: {
+      clickShowRed: []
+    },
+    methods: {
+      showRed() {
+        this.clickShowRed.includes('red') ? null : this.clickShowRed.push('red')
+      }
+    }
+  })
+</script>
+</body>
+
+</html>

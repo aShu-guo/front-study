@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="helloworld">{{ content }}</div>
+
+<div id="title" :title="message">
+  鼠标悬停几秒钟查看此处动态绑定的提示信息！
+</div>
+
+<div id="if">
+  <span v-if="show">我被展示了</span>
+  <span v-else-if="!show">我消失了</span>
+  <span>{{ show ? new Date().toLocaleString() : 'false' }}</span>
+</div>
+
+<div class="show-cutomer-input">
+  <input type="text" v-model="value">
+  <span>{{ value }}</span>
+</div>
+
+<div id="computed">
+  <p>Original message: "{{ message }}"</p>
+  <p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+
+<div id="watch">
+  firstName:<input type="text" v-model="firstName">
+  lastName:<input type="text" v-model="lastName">
+  <span>{{ fullName }}</span>
+</div>
+
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+  let app = new Vue({
+    el: '#helloworld',//选择器
+    data: {//填入的content
+      content: 'helloworld'
+    }
+  })
+
+  setTimeout(() => {
+    app.$data.content = 'wow!'
+  }, 2000)
+
+  let title = new Vue({
+    el: '#title',
+    data: {
+      message: '页面加载于 ' + new Date().toLocaleString()
+    }
+  })
+
+  var ifElse = new Vue({
+    el: '#if',
+    data: {
+      show: true,
+    }
+  })
+
+  var showInput = new Vue({
+    el: '.show-cutomer-input',
+    data: {
+      value: '123'
+    }
+  })
+
+  var computed = new Vue({
+    el: '#computed',
+    data: {
+      message: 'helloworld'
+    },
+    //计算属性缓存
+    computed: {
+      reversedMessage: function () {
+        return this.message.split('').reverse().join('');
+      }
+    },
+  })
+
+  var watch = new Vue({
+    el: '#watch',
+    data: {
+      firstName: '',
+      lastName: '',
+      // fullName: '',
+    },
+    // watch: {
+    //   firstName: function (val) {
+    //     this.fullName = val + ' ' + this.lastName
+    //   },
+    //   lastName: function (val) {
+    //     this.fullName = this.firstName + ' ' + val
+    //   }
+    // },
+    //当一个属性需要根据另外一个属性改变时，使用计算属性更好
+    //计算属性默认只有getter，也可添加setter
+    //计算属性有内置缓存，即如果依赖的属性值没有改变时，才会重新计算一次；而methods中的方法，只要data中的属性发生改变，便会重新执行一次；
+
+    computed: {
+      fullName: {
+        get: function () {
+          return this.firstName + ' ' + this.lastName;
+        },
+        set: function (val) {
+          var split = val.split(' ');
+          this.firstName = split[0];
+          this.lastName = split[1];
+        }
+
+      }
+    }
+  })
+  /*
+  计算属性computed，方法method，侦听器watch的区别
+  computed有内置缓存，如果依赖的属性没有发生改变，就不会重新计算；
+  method没有内置缓存，如果data中的属性值发生改变，便会重新执行一次；
+  watch也有内置缓存，但是要为依赖的属性设置一个watch，语法比较麻烦
+   */
+</script>
+
+</html>

@@ -1,0 +1,11 @@
+//正则表达式
+//1.基础篇
+console.log('baeiou123'.match(/^baeiou/gi));
+console.log('13083668372'.match(/^1\d{10}$/gi));
+console.log('abbbb'.match(/^ab*$/gi));
+console.log('(ab)(ab)'.match(/\(ab\)*/gi));
+//匹配联通手机号段
+console.log('13083668372'.match(/^(130|131|132|155|156|185|186|145|176)\d{8}$/gi));
+console.log('13083668372'.match(/^(13[0-2]|15[56]|18[56]|145|176)\d{8}/gi));
+console.log('13083668372@163.com'.match(/((^1\d{10})|(\w+))@163.com$/gi));
+console.log('30000'.match(/^[1-9]\d+\d$/gi));

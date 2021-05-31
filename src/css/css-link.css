@@ -1,0 +1,48 @@
+.center {
+  text-align: center;
+}
+
+
+.title {
+  font-weight: 400;
+}
+.logo {
+  text-align: center;
+}
+
+.nav {
+  font-size: 14px;
+  text-align: center;
+}
+
+.sousou {
+  text-align: center;
+}
+
+.search {
+  width: 420px;
+  height: 23px;
+}
+
+.btn {
+  height: 30px;
+  width: 100px;
+  font-size: 14px;
+}
+
+.more {
+  text-align: center;
+  font-size: 14px;
+}
+
+.map {
+  text-align: center;
+  font-size: 12px;
+}
+
+.bottom {
+  font-size: 12px;
+  text-align: center;
+  line-height: 30px;
+}
+

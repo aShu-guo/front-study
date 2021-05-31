@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<span id="ifOne" v-if="value">
+  仅一个元素
+</span>
+<div id="ifMore">
+  <template v-if="value">
+    <h1>行元素h1</h1>
+    <h2>行元素h2</h2>
+    <p>行内块元素p</p>
+  </template>
+</div>
+
+<div id="keyDemo">
+  <template v-if="type==='userName'">
+    <label>
+      userName:<input type="text" placeholder="userName" v-model="userName" key="input-username">
+    </label>
+
+  </template>
+  <template v-else>
+    <label>
+      email:<input type="password" placeholder="email" v-model="password" key="input-password">
+    </label>
+  </template>
+  <button @click="toggle()">toggle login type</button>
+</div>
+
+
+<div id="show" v-show="isShow">
+  v-show demo
+</div>
+
+<div>
+  show
+</div>
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+  //v-if v-else v-else-if必须紧贴使用
+  var ifOnevm = new Vue({
+    el: '#ifOne',
+    data: {
+      value: true
+    },
+  })
+  //用template渲染分组，选择上级元素，不能选择template作为目标
+  //而且最终渲染结果不包括template
+  var ifMore = new Vue({
+    el: '#ifMore',
+    data: {
+      value: true
+    }
+  })
+
+  //不会清除用户输入的数据，因为两个模板使用了相同的元素
+  //vue会尽可能高效的渲染，能复用就不重新渲染
+  var keyDemo = new Vue({
+    el: '#keyDemo',
+    data: {
+      type: 'userName',
+      userName: '',
+      password: '',
+    },
+    methods: {
+      toggle() {
+        if (this.type === 'userName') {
+          // this.userName = '';
+          this.type = '';
+        } else {
+          // this.password = '';
+          this.type = 'userName';
+        }
+      }
+    }
+  })
+
+  //v-show指令也是条件展示元素，只是简单的切换css的display属性
+  var show = new Vue({
+    el: '#show',
+    data: {
+      isShow: true
+    }
+  })
+
+  /*
+  v-if 与 v-show 的关系
+  v-if 会销毁和重建对应条件块的事件监听器和子组件，所以切换开销较大，根据条件展示在DOM中。v-if尽可能高效的渲染，能复用就不重新渲染(添加key属性)
+  v-show 只是简单的切换css的display属性，所以切换开销较小，无论展示与否都会保存在DOM中。
+
+  使用场景：切换频率高的的条件块使用v-show，切换频率低的条件块使用v-if
+  不推荐v-if v-for同时使用，v-for有更高的优先级
+   */
+
+</script>
+</html>

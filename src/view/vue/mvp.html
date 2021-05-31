@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>mvp设计模式demo</title>
+</head>
+<body>
+<div>
+  <input type="text">
+  <button type="submit" id="btn">提交</button>
+
+  <ul>
+    <li></li>
+  </ul>
+</div>
+
+</body>
+<script src="../../js/jquery.js"></script>
+<script>
+  function Page() {
+
+  }
+
+  $.extend(Page.prototype, {
+    init: function () {
+      this.bindEvents();
+    },
+    bindEvents: function () {
+      var btn = $('#btn');
+      btn.on('click', $.proxy(this.handleBtnClick, this))
+    },
+    handleBtnClick: function () {
+      alert('123');
+    }
+  })
+
+  var page = new Page();
+  page.init();
+</script>
+</html>

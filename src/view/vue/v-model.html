@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="text">
+  <input type="text" v-model="text">
+  <span>输入的值是：{{ text }}</span>
+
+  <textarea name="name" cols="30" rows="10" v-model="remark">
+
+  </textarea>
+  <span>输入的值是：{{ remark }}</span>
+
+</div>
+
+<div id="checked">
+  <label>
+    复选框:<input type="checkbox" value="选中" v-model="checked">
+  </label>
+  <label>
+    复选框:<input type="checkbox" value="选中1" v-model="checked">
+  </label>
+  <span>
+    {{ checked }}
+  </span>
+</div>
+
+<div id="radio">
+  <label>
+    单选框:<input type="radio" value="female" v-model="checked">
+  </label>
+  <label>
+    单选框:<input type="radio" value="male" v-model="checked">
+  </label>
+
+  <span>
+    {{ checked }}
+  </span>
+</div>
+
+
+<div id="selected">
+  下拉框：
+  <select name="status" v-model="selected">
+    <option disabled value="" selected>请选择</option>
+    <option value="1">审核中</option>
+    <option value="2">待审核</option>
+    <option value="3">拒审</option>
+  </select>
+  seleced:{{ selected }}
+</div>
+
+<div id="multiSelected">
+  下拉框-多选：
+  <select name="status" multiple v-model="selected">
+    <option disabled value="" selected>请选择</option>
+    <option value="1">审核中</option>
+    <option value="2">待审核</option>
+    <option value="3">拒审</option>
+  </select>
+  seleced:{{ selected }}
+</div>
+
+
+<div id="dynat">
+  动态绑定下拉框
+  <select>
+    <option v-for="item in list" :value="item.value">
+      {{item.text}}
+    </option>
+  </select>
+</div>
+
+<div id="value-bind">
+  <input type="radio" v-model="picked" value="a">
+  <span>{{picked}}</span>
+</div>
+
+
+</body>
+<script src="../../js/vue.js"></script>
+<script>
+  var textvm = new Vue({
+    el: '#text',
+    data: {
+      text: '',
+      remark: ''
+    }
+
+  })
+
+  var checkedvm = new Vue({
+    el: '#checked',
+    data: {
+      checked: [],
+    }
+  })
+
+  var radiovm = new Vue({
+    el: '#radio',
+    data: {
+      checked: ''
+    }
+  })
+
+  var selectedvm = new Vue({
+    el: '#selected',
+    data: {
+      selected: '',
+    },
+
+  })
+
+  var multiSelected = new Vue({
+    el: '#multiSelected',
+    data: {
+      selected: []
+    }
+  })
+
+  var dyn = new Vue({
+    el: '#dynat',
+    data: {
+      list: [
+        {text: 'One', value: 'A'},
+        {text: 'Two', value: 'B'},
+        {text: 'Three', value: 'C'}
+      ]
+    }
+  })
+
+  var valueBind=new Vue({
+    el:'#value-bind',
+    data:{
+      picked:false
+    }
+  })
+</script>
+</html>

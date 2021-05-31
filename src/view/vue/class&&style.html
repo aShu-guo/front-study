@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="passByObj4Class" v-bind:class="syncClass">
+  绑定class-传入对象
+</div>
+
+<div id="passByObj4ClassStrong" :class="classObject">
+  绑定class-传入对象-动态
+</div>
+
+<div id="passByArray4Class" :class="classObject">
+  绑定class-传入数组
+</div>
+
+<div id="passByObj4Style" :style="modifyStyle">
+  绑定内联样式-传入对象
+</div>
+
+<div id="passByArray4Style">
+  绑定内联样式-传入数组
+</div>
+
+<div id="red-col" @click="showRed" :class="{red:isError}">
+  <div>Hello world</div>
+</div>
+</body>
+
+<script src="../../js/vue.js"></script>
+<script>
+  //绑定class-传入对象
+  var passByObj4Class = new Vue({
+    el: '#passByObj4Class',
+    data: {
+      syncClass: {
+        active: true,
+        hasError: true
+      }
+    }
+  })
+  //绑定class-传入对象-动态
+  var passByObj4ClassStrong = new Vue({
+    el: '#passByObj4ClassStrong',
+    data: {
+      isActive: true,
+      hasError: false,
+    },
+    computed: {
+      classObject() {
+        return {
+          active: this.isActive && !this.hasError,
+          hasError: this.hasError
+        }
+      }
+    }
+  })
+
+  //绑定class-传入数组
+  var passByArray4Class = new Vue({
+    el: '#passByArray4Class',
+    data: {
+      isActive: true,
+      hasError: false,
+    },
+    computed: {
+      classObject() {
+        return [this.isActive && !this.hasError ? 'active' : '',
+          this.hasError ? 'hasError' : ''
+        ]
+      }
+    }
+  });
+
+  //绑定内联样式-传入对象
+  // var passByObj4Style = new Vue({
+  //   el: '#passByObj4Style',
+  //   data: {
+  //     modifyStyle: {
+  //       color: 'red',
+  //       border: '1px solid'
+  //     }
+  //   }
+  // })
+  //绑定内联样式-传入对象-动态改变
+  var passByObj4Style = new Vue({
+    el: '#passByObj4Style',
+    data: {
+      error: false
+    },
+    computed: {
+      modifyStyle() {
+        return {
+          color: this.error ? 'red' : 'black',
+          border: '1px solid',
+          fontSize: '30px'
+        }
+      }
+    }
+  })
+
+  //绑定内联样式-传入数组 将多个对象传入数组
+  var passByArray4Style = new Vue({
+    el: '#passByArray4Style',
+    data: {
+      error: false
+    },
+    computed: {
+      modifyStyle() {
+        return [{
+          color: this.error ? 'red' : 'black',
+          border: '1px solid',
+          fontSize: '30px'
+        }]
+      }
+    }
+  })
+
+  var vmcolor = new Vue({
+    el: '#red-col',
+    data: {
+      isError: false
+    },
+    methods: {
+      showRed() {
+        this.isError=!this.isError;
+      }
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="component">
+  <component-a></component-a>
+  <hr>
+  <component-b></component-b>
+  <hr>
+  <component-c></component-c>
+  <hr>
+
+</div>
+</body>
+
+<div id="props">
+  <component-a></component-a>
+</div>
+
+<div id="table">
+  <table>
+    <tbody>
+    <tr is="row"></tr>
+    <tr>
+      <td>
+        <div ref="world">
+          wowoow
+        </div>
+        <span @click="showRef">click show ref</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+<div id="non-parent-transfer">
+  <child content="hello"></child>
+  <child content="world"></child>
+</div>
+
+<script src="../../js/vue.js"></script>
+<script>
+  /*
+  全局组册与局部注册优缺点：
+  1.全局注册，所有vue实例都可以调用，即使用不到也会加载，造成性能下降
+  2.局部组册，需要在vue实例中指定components
+  组件定义后在vue实例中使用才会生效
+  */
+  Vue.config.performance = true;
+
+  var ComponentA = {
+    //组件的data必须是一个函数，返回一个对象；原因是：保证每个子组件都有一个独立的data
+    data: function () {
+      return {count: 0};
+    },
+    template: '<button @click="count++">you click me {{count}} times!</button>',
+  }
+
+  //prop属性
+  var ComponentB = {
+    props: {
+      name: String,
+      age: Number,
+      isFemale: Boolean,
+    },
+    template: '<span :id="name">{{name}}:{{age}},是否为女性：{{isFemale}}</span>'
+  }
+
+  var ComponentC = {
+    data: function () {
+      return {time: new Date()}
+    },
+    template: '<span @click="show">当前时间：{{time}}</span>',
+    methods: {
+      show: function () {
+        this.time = new Date();
+      }
+    }
+  }
+
+  var grobalComponent = new Vue({
+    el: '#component',
+    components: {
+      'component-a': ComponentA,
+      'component-b': ComponentB,
+      'component-c': ComponentC,
+    }
+  })
+
+  //用is指向组件
+  var table = new Vue({
+    el: '#table',
+    components: {
+      'row': {
+        data: function () {
+          return {
+            getDom() {
+              console.log('hello component');
+              console.log(this.$refs.hello);
+            }
+          }
+        },
+        template: '<tr ref="hello" @click.once="getDom"><td>this is a row</td></tr>',
+      }
+    },
+    methods: {
+      //通过ref获取节点
+      showRef() {
+        console.log(this.$refs.world)
+      }
+    }
+  })
+
+
+  // 在组件上设置的事件对应子组件发射的事件
+
+  Vue.prototype.bus = new Vue();
+
+  var child = {
+    data: function () {
+      return {
+        selfContent: this.content,
+      }
+    },
+    props: {
+      content: {
+        type: String,
+      },
+    },
+    template: '<div @click="handleClick">{{selfContent}}</div>',
+    methods: {
+      handleClick() {
+        this.bus.$emit('change', this.selfContent)
+      }
+    },
+    mounted() {
+      var this_ = this
+      this.bus.$on('change', function (msg) {
+        this_.selfContent = msg
+      })
+    }
+  }
+
+  var noParentTransfer = new Vue({
+    el: '#non-parent-transfer',
+    components: {
+      'child': child,
+    }
+  })
+
+  /*
+  1.父子组件传值
+  父组件向子组件传值：通过属性绑定
+  子组件向父组件传值：通过事件触发。props接收父组件传来的值，但是不要修改（存在单向数据流）
+  2.组件参数检验
+
+  3.非Props特性
+  如果没有用props属性接收父组件穿的值，那么父组件用属性传来的值会当作属性放在子组件最外层标签上
+  4.给组件绑定原生事件
+  @click.native 添加一个native修饰符
+  5.非父子组件传值
+  通过vuex or 发布订阅模式（又称总线机制，又称观察者模式，又称bus） 解决
+
+   */
+
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  /*
+  vue动画原理
+  默认 进入的第一帧立刻出现
+  .v-enter{
+    opacity:1
+  }
+  离开的第一帧立刻消失
+  .v-leave{
+    opacity:1
+  }
+  1.显示时
+  第一帧添加:v-enter  v-enter-active
+  第二帧：移出v-enter 添加v-enter-to
+  最后一帧：移出v-enter-to v-enter-active
+
+  2.消失时
+  第一帧添加:v-leave v-leave-active
+  第二帧：移出v-leave 添加v-leave-to
+  最后一帧：移出v-leave-to v-leave-active
+  */
+  .v-enter {
+    opacity: 1;
+  }
+
+  .v-enter-to, .v-leave-to {
+    opacity: 0;
+  }
+
+  .v-enter-active, .v-leave-active {
+    transition: opacity 1s;
+  }
+</style>
+<body>
+
+<div id="app">
+  <transition>
+    <div v-if="show">hello world</div>
+  </transition>
+  <button @click="showOrNot">fade!</button>
+</div>
+
+<script src="../../../js/vue.js"></script>
+<script>
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      show: true,
+    },
+    methods: {
+      showOrNot() {
+        this.show = !this.show
+      }
+    }
+  })
+</script>
+</body>
+</html>

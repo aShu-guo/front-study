@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>
+    注册
+  </title>
+</head>
+<body>
+<form action="/login" method="post">
+  <label>
+    用户名：
+    <input type="text" placeholder="请输入用户名">
+  </label>
+
+  <label for="pwd">密码：</label>
+  <input id="pwd" type="password" placeholder="">
+  <span>性别：</span>
+  <span>男：<input type="radio" name="sex" checked></span>
+  <span>女：<input type="radio" name="sex"></span>
+
+  <span>爱好：</span>
+  <span>
+    篮球：<input type="checkbox" name="interest" checked>
+  </span>
+  <label>
+    足球：<input type="checkbox" name="interest">
+  </label>
+  <span>
+    重置： <input type="reset">
+  </span>
+  <span>
+    上传头像：<input type="file" name="headUrl">
+  </span>
+
+  <br/>
+  <label for="addr">地址：</label>
+  <select name="addr" id="addr">
+    <option value="">-----省份-----</option>
+    <option value="1">河南省</option>
+    <option value="2">北京市</option>
+    <option value="3">河南省</option>
+    <option value="4">河南省</option>
+  </select>
+
+  <select name="city" id="city">
+    <option value="1">郑州市</option>
+    <option value="2">开封市</option>
+    <option value="3">荥阳市</option>
+  </select>
+</form>
+</body>
+</html>
