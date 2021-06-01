@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .box1 {
+      height: 200px;
+      background-color: red;
+    }
+
+    .box2 {
+      height: 200px;
+      background-color: blue;
+      position: relative;
+      top: 20px;
+      left: 20px;
+    }
+
+    .box3 {
+      height: 200px;
+      background-color: pink;
+    }
+
+    .box4 {
+      width: 700px;
+      height: 200px;
+      background-color: yellow;
+      position: fixed;
+      bottom: 5px;
+      right: 20px;
+    }
+
+    .box5 {
+      height: 200px;
+      background-color: green;
+      position: static;
+      left: 200px;
+      top: 100px;
+    }
+
+    /*
+    absolute定位是相对于第一个非static父元素定位，如果没有，则相对于html定位
+    */
+    .box5-parent {
+      /*position: fixed;*/
+    }
+
+    .box5-parent2 {
+      /*position: relative;*/
+    }
+
+    /*
+    position:
+    absolute:相对于第一个非static的父元素定位
+    relative：相对于正常位置定位
+    fixed：相对于窗口定位
+    static：正常文档流定位
+    inhreit：从父元素继承定位
+     */
+  </style>
+</head>
+<body>
+<div class="box1">box1box1box1box1box1box1box1box1box1box1box1box1</div>
+<div class="box2">box2box2box2box2box2box2box2box2box2box2box2box2</div>
+<div class="box3">box3box3box3box3box3box3box3box3box3box3box3box3</div>
+<div class="box4">box4box4box4box4box4box4box4box4box4box4box4box4</div>
+<div class="box5-parent">
+  <div class="box5-parent2">
+    <div class="box5">box5box5box5box5box5box5box5box5box5box5box5box5</div>
+  </div>
+</div>
+
+</body>
+</html>
+<script>
+
+</script>
