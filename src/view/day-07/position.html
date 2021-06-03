@@ -4,9 +4,15 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
     .box1 {
       height: 200px;
       background-color: red;
+      margin: 20px;
     }
 
     .box2 {
@@ -32,11 +38,12 @@
     }
 
     .box5 {
-      height: 200px;
-      background-color: green;
-      position: static;
-      left: 200px;
-      top: 100px;
+      height: 300px;
+      /*background-color: green;*/
+      /*position: static;*/
+      /*left: 200px;*/
+      /*top: 100px;*/
+      margin-top: 400px;
     }
 
     /*
@@ -44,7 +51,22 @@
     */
     .box5-parent {
       /*position: fixed;*/
+      background-color: #555555;
+      /*height: 500px;*/
+      margin-top: 200px;
+      /*padding:1px;*/
+      /*border: 1px solid transparent;*/
+      /*overflow: hidden;*/
+      /*position: fixed;*/
+      display: table;
+      /*bottom: 500px;*/
+
     }
+
+    /*.box5:before {*/
+    /*  content: '';*/
+    /*  overflow: hidden;*/
+    /*}*/
 
     .box5-parent2 {
       /*position: relative;*/
@@ -70,7 +92,7 @@
     <div class="box5">box5box5box5box5box5box5box5box5box5box5box5box5</div>
   </div>
 </div>
-
+<div>hello world</div>
 </body>
 </html>
 <script>
