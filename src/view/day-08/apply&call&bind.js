@@ -54,8 +54,10 @@ slice()
 深拷贝
 JSON.parse(JSON.stringify())
  */
+arr[5] = Symbol('gcl')
 var arr3 = JSON.parse(JSON.stringify(arr))
 console.log(arr)
+console.log('arr3')
 console.log(arr3)
 
 arr3[4].shh = 'garbage'

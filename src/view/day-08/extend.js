@@ -16,6 +16,7 @@ function Parent() {
 
 function Son() {
   Parent.call(this)
+
   this.repaymoney = 23;
 }
 
@@ -25,10 +26,6 @@ var son = new Son();
 son.isdelete = 1
 
 console.log(son.constructor)
-
-export default {
-  Son
-}
 
 
 
