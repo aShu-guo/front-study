@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  if(navigator.serviceWorker){
+    navigator.serviceWorker.register('sw.js')
+    .then(function (registration){
+      console.log('service worker 注册成功')
+    }).catch(function (err){
+      console.log(err)
+    })
+  }
+  self.addEventListener('install',function (file){
+    file.waitUntil(caches.open('my-cache').then(function (cache){
+      return cache.addAll(['./'])
+    }))
+  })
+</script>
+</body>
+</html>

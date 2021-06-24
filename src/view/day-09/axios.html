@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+  function getProducts() {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'get',
+        url: 'http://localhost:8766/aicha/products'
+      }).then(result => {
+        resolve(result)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  }
+
+  async function asyncGetProduct() {
+    var result = await getProducts()
+    console.log(result)
+    console.log('axios after')
+  }
+
+  asyncGetProduct()
+  // getProducts().then(value => {
+  //   console.log(value)
+  // })
+
+
+</script>
+</body>
+</html>

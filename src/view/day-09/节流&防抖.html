@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .more-height {
+      height: 1000px;
+    }
+  </style>
+</head>
+<body>
+<div class="more-height">
+  我是一个大长条
+</div>
+<script>
+  function showTop() {
+    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    console.log('滚动条位置：' + scrollTop);
+  }
+
+
+  function debounce(fn, delay) {
+    let timer = null
+    return function () {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(fn, delay)
+    }
+  }
+
+  window.onscroll = debounce(showTop,1000)
+
+</script>
+</body>
+</html>

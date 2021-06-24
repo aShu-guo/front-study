@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="todoItem"></div>
+
+<div id="helloworld"></div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<script>
+  // var todoItem = Vue.extend({
+  //   template: `
+  //     <li>{{ text }}</li>`,
+  //   props: {
+  //     text: {
+  //       type: String,
+  //       require: true,
+  //       default: ''
+  //     }
+  //   }
+  // })
+  //
+  // var todoWrap = Vue.extend({
+  //   template: `
+  //     <ul>
+  //     <todo-item v-for="(item,index) of list" v-text="item.text"></todo-item>
+  //     </ul>
+  //   `,
+  //   props: {
+  //     list: {
+  //       type: Array,
+  //       default: []
+  //     }
+  //   },
+  //   components: {
+  //     'todo-item': todoItem
+  //   }
+  // })
+  //
+  // Vue.component('todo', todoWrap)
+  //
+  // var vm = new Vue({
+  //   el: '#app',
+  //   data: {
+  //     list: [
+  //       {id: 0, text: '蔬菜'},
+  //       {id: 1, text: '奶酪'},
+  //       {id: 2, text: '随便其它什么人吃的东西'}
+  //     ]
+  //   }
+  // })
+  // 局部注册组件
+  var todoItem = Vue.extend({
+    data: function () {
+      return {
+        todoData: [
+          {id: 0, text: '蔬菜'},
+          {id: 1, text: '奶酪'},
+          {id: 2, text: '随便其它什么人吃的东西'}]
+      }
+    },
+    template: `
+      <ul>
+      <li v-for='(d, i) in todoData' :key="i">
+        {{ d.text }}
+      </li>
+      </ul>
+    `
+  });
+
+  // 请注意，在实例化extends组件构造器时，传入属性必须是propsData、而不是props哦
+  new todoItem().$mount('#helloworld')
+  new todoItem().$mount('#todoItem')
+
+</script>
+</html>

@@ -100,6 +100,8 @@ new Promise(function (resolve) {
 async4();
 
 console.log('script end');
+
+console.log(123123123)
 /*
 script start
 async3
@@ -112,8 +114,6 @@ promise2
 789
 456
  */
-
-
 
 
 

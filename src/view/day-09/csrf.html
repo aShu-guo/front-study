@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta http-equiv="content-security-policy" >
+</head>
+<body>
+<img src="https://www.sunceyun.com/st/user/info" alt="">
+<a href="https://sunceyun.com/st/user/info">csrf</a>
+<button id="button">
+  click me!
+</button>
+
+<ul id="ul" onclick="clickHandle(this)">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+</ul>
+<script>
+  function clickHandle (obj) {
+    `use strict`
+
+    // console.log(event.target);
+    // console.log(event.currentTarget);
+    console.log(obj.event)
+    console.log(this)
+  }
+  // let ul = document.querySelector('#ul')
+  // ul.addEventListener('click', function (event) {
+  //   console.log(event.target);
+  //   console.log(event.currentTarget);
+  //
+  //   console.log(this)
+  // })
+
+</script>
+<script>
+  console.log(document.cookie)
+  localStorage.setItem('company','sohh')
+  console.log(localStorage.getItem('company'))
+  localStorage.setItem('company','garbage')
+  console.log(localStorage.getItem('company'))
+
+  var db=indexedDB.open('info',1)
+  console.log(db.result)
+</script>
+
+<script>
+  var ele = document.getElementById('button')
+
+  function log() {
+    console.log('123')
+  }
+
+  ele.addEventListener('click', log, {capture: true})
+  ele.addEventListener('click', log, {capture: true})
+</script>
+</body>
+</html>
